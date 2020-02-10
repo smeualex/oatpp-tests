@@ -1,0 +1,2 @@
+#define OATPP_SIMPLE_PROJECT_VERSION_MAJOR @oatpp-simple-project_VERSION_MAJOR@
+#define OATPP_SIMPLE_PROJECT_VERSION_MINOR @oatpp-simple-project_VERSION_MINOR@
