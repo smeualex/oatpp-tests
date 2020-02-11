@@ -17,6 +17,15 @@ class MessageDto : public oatpp::data::mapping::type::Object {
   DTO_FIELD(Int32, statusCode);   // Status code field
   DTO_FIELD(String, message);     // Message field
 
+public:
+  static MessageDto::ObjectWrapper create(Int32 statusCode, const String& message){
+    auto dto = MessageDto::createShared();
+
+    dto->statusCode = statusCode;
+    dto->message    = message;
+
+    return dto;
+  }
 };
 
 /* TODO - Add more DTOs here */

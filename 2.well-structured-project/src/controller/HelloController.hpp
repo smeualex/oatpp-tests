@@ -6,6 +6,7 @@
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/core/macro/component.hpp"
+#include "oatpp/parser/json/mapping/ObjectMapper.hpp"
 
 /**
  * Sample Api Controller.
@@ -27,13 +28,24 @@ public:
 #include OATPP_CODEGEN_BEGIN(ApiController)
   
   ENDPOINT("GET", "/hello", root) {
+    OATPP_LOGI("MyApp", "GET /hello");
+    
     auto dto = MessageDto::createShared();
     dto->statusCode = 200;
     dto->message = "Hello World ma' fuckers!!!";
+    
     return createDtoResponse(Status::CODE_200, dto);
   }
   
-  // TODO Insert Your endpoints here !!!
+  ENDPOINT("POST", "/hello", createMessage,
+           BODY_DTO(MessageDto::ObjectWrapper, dto)){
+    OATPP_LOGI("MyApp", "POST /hello - let's say we are saving this into some DB");
+    
+    dto->message = dto->message + " - processed!";
+    dto->statusCode = 100;
+    
+    return createDtoResponse(Status::CODE_200, dto);
+  }
   
 /**
  *  Finish ENDPOINTs generation ('ApiController' codegen)
