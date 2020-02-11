@@ -4,6 +4,8 @@
 #include "oatpp/web/client/ApiClient.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 
+#include "dto/Message.hpp"
+
 /* Begin Api Client code generation */
 #include OATPP_CODEGEN_BEGIN(ApiClient)
 
@@ -15,7 +17,8 @@ class ApiTestClient : public oatpp::web::client::ApiClient {
 
   API_CLIENT_INIT(ApiTestClient)
 
-  API_CALL("GET", "/hello", getHello)
+  API_CALL("GET",  "/hello", getHello)
+  API_CALL("POST", "/hello", postHello, BODY_DTO(MessageDto::ObjectWrapper, dto))
 
   // TODO - add more client API calls here
 

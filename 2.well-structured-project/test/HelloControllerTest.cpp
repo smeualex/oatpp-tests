@@ -49,6 +49,20 @@ void HelloControllerTest::onRun() {
     OATPP_ASSERT(message);
     OATPP_ASSERT(message->statusCode->getValue() == 200);
     OATPP_ASSERT(message->message == "Hello World ma' fuckers!!!");
+    
+
+    auto dto = MessageDto::createShared();
+    dto->message = "Message";
+    response = client->postHello(dto);
+
+    OATPP_LOGI("MyApp", "Server running on port %s", connectionProvider->getProperty("port").getData());
+    
+    message = response->readBodyToDto<MessageDto>(objectMapper.get());
+
+    /* Assert that received message is as expected */
+    OATPP_ASSERT(message);
+    OATPP_ASSERT(message->statusCode->getValue() == 100);
+    OATPP_ASSERT(message->message == (dto->message + " - processed"));
 
   }, std::chrono::minutes(10) /* test timeout */);
 
